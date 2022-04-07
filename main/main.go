@@ -68,5 +68,5 @@ func main() {
 	// wrongcatch.Test02()
 	// quiz0406.Test01()
 	// quiz0406.Test02()
-	array.Test03()
+	array.Test05()
 }
