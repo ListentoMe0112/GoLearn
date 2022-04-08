@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GoLearn/array"
+	_ "GoLearn/array"
 	_ "GoLearn/clousure"
 	_ "GoLearn/dateTime"
 	_ "GoLearn/defer"
@@ -13,6 +13,7 @@ import (
 	_ "GoLearn/quiz0405"
 	_ "GoLearn/quiz0406"
 	_ "GoLearn/recur"
+	"GoLearn/slice"
 	_ "GoLearn/test02"
 	_ "GoLearn/wrongcatch"
 	"fmt"
@@ -68,5 +69,6 @@ func main() {
 	// wrongcatch.Test02()
 	// quiz0406.Test01()
 	// quiz0406.Test02()
-	array.Test05()
+	// array.Test05()
+	slice.Test02()
 }
