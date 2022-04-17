@@ -1,5 +1,6 @@
 #include <exception>
 #include <iostream>
+#include <string>
 using namespace std;
 
 class MyException : public exception {
@@ -49,27 +50,38 @@ int readingFile(const string& fileName){
     return 0;
 }
 
+typedef struct {
+    string name;
+    int age;
+    string color;
+}Cat;
+
 int main(){
     // ptest = &test;
     // cout << (*ptest)(10, 20) << endl;
     // cout << sum(10, 201, 239, 31, 321, 43, 54, 31) << endl;
-    int x = 50;
-    int y = 0;
-    double z = 0;
-    try {
-        z = division(x, y);
-        cout << z << endl;
-    }catch (MyException& e) {
-        cerr << e.what() << endl;
-    }
+    // int x = 50;
+    // int y = 0;
+    // double z = 0;
+    // try {
+    //     z = division(x, y);
+    //     cout << z << endl;
+    // }catch (MyException& e) {
+    //     cerr << e.what() << endl;
+    // }
 
-    try {
-        readingFile("config.init");
+    // try {
+    //     readingFile("config.init");
 
-    }catch (ReadingFailException& e){
-        cerr << e.what() << endl;
-    }
-
+    // }catch (ReadingFailException& e){
+    //     cerr << e.what() << endl;
+    // }
+    Cat c1;
+    c1.age = 1;
+    c1.color = "white milk";
+    c1.name = "fufu";
+    cout << c1.name << "\t" << c1.age << "\t" << c1.color << endl;
+    
     return 0;
 }
 

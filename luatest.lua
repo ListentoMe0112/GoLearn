@@ -45,3 +45,46 @@ print(a1(2))
 
 jpg = makeSuffix(".jpg")
 print(jpg("hello"))
+
+
+Account = {}
+
+function Account:withdraw (v)
+	self.balance = self.balance - v
+end
+ 
+function Account:deposit (v)
+	self.balance = self.balance + v
+end
+
+function Account:create(x)
+    local o = {balance = x or 0}
+    metatable = {}
+    metatable.__index = Account
+    metatable.__len = function() 
+        return 5
+    end
+    setmetatable(o, metatable)
+    return o
+end
+
+
+
+acc1 = Account:create()
+print(#acc1)
+function acc1:deposit (v)
+	self.balance = self.balance + v
+    print("balance: ", self.balance)
+end
+acc1:deposit(10)
+
+mytable = {key1 = "value1"}
+setmetatable(mytable, {
+    __newindex = function(mytable, key, value)
+        rawset(mytable, key, "\""..value.."\"")
+    end
+})
+
+mytable.key1 = "new value"
+mytable.key2 = 4
+print(mytable.key1,mytable.key2)
