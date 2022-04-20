@@ -6,13 +6,14 @@ import (
 	_ "GoLearn/dateTime"
 	_ "GoLearn/defer"
 	_ "GoLearn/dimensionArray"
+	"GoLearn/file"
 	_ "GoLearn/func"
 	_ "GoLearn/gostring"
 	_ "GoLearn/inter"
 	_ "GoLearn/logic"
 	_ "GoLearn/loop"
 	_ "GoLearn/map"
-	"GoLearn/oo"
+	_ "GoLearn/oo"
 	_ "GoLearn/operator"
 	_ "GoLearn/quiz0405"
 	_ "GoLearn/quiz0406"
@@ -29,21 +30,21 @@ func init() {
 	fmt.Println("Befor Main")
 }
 
-func TypeJudge(items ...interface{}) {
-	for idx, val := range items {
-		switch val.(type) {
-		case bool:
-			fmt.Printf("%d th arg's type is bool, the value is %v\n", idx, val)
-		case oo.Student:
-			fmt.Printf("%d th arg's type is Student, the value is %v\n", idx, val)
-		case *oo.Student:
-			fmt.Printf("%d th arg's type is *Student, the value is %v\n", idx, val)
-		default:
-			fmt.Printf("%d th arg's type is unkonwn, the value is %v\n", idx, val)
-		}
+// func TypeJudge(items ...interface{}) {
+// 	for idx, val := range items {
+// 		switch val.(type) {
+// 		case bool:
+// 			fmt.Printf("%d th arg's type is bool, the value is %v\n", idx, val)
+// 		case oo.Student:
+// 			fmt.Printf("%d th arg's type is Student, the value is %v\n", idx, val)
+// 		case *oo.Student:
+// 			fmt.Printf("%d th arg's type is *Student, the value is %v\n", idx, val)
+// 		default:
+// 			fmt.Printf("%d th arg's type is unkonwn, the value is %v\n", idx, val)
+// 		}
 
-	}
-}
+// 	}
+// }
 
 func main() {
 	// acc := clousure.Adapter()
@@ -110,28 +111,29 @@ func main() {
 	// var fa oo.FishAble = &l
 	// fa.Swimming()
 
-	ug := oo.Undergraduate{}
-	ug.Name = "dajkdsa"
-	ug1 := oo.Undergraduate{}
-	ug1.Name = "ewuqi"
-	fa := oo.FootballAthelete{}
-	fa.Name = "jihi"
+	// ug := oo.Undergraduate{}
+	// ug.Name = "dajkdsa"
+	// ug1 := oo.Undergraduate{}
+	// ug1.Name = "ewuqi"
+	// fa := oo.FootballAthelete{}
+	// fa.Name = "jihi"
 
-	var les [3]oo.English
+	// var les [3]oo.English
 
-	les[0] = &ug
-	les[1] = &ug1
-	les[2] = &fa
-	for _, v := range les {
-		v.OwnEnglish()
+	// les[0] = &ug
+	// les[1] = &ug1
+	// les[2] = &fa
+	// for _, v := range les {
+	// 	v.OwnEnglish()
 
-	}
+	// }
 
-	var n1 bool = true
-	var n2 int32 = 30
-	var ns string = "tom"
+	// var n1 bool = true
+	// var n2 int32 = 30
+	// var ns string = "tom"
 
-	var stu oo.Student = oo.Student{"xieyibo"}
-	var stu1 *oo.Student = &oo.Student{"zhangxiaogou"}
-	TypeJudge(n1, n2, ns, ug, stu, stu1)
+	// var stu oo.Student = oo.Student{"xieyibo"}
+	// var stu1 *oo.Student = &oo.Student{"zhangxiaogou"}
+	// TypeJudge(n1, n2, ns, ug, stu, stu1)
+	file.Test06()
 }
