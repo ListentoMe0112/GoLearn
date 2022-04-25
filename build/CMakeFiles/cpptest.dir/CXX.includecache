@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/GoLearn/cpptest.cpp
+iostream
+-
+thread
+-
+mutex
+-
+string
+-
+fstream
+-
+unordered_map
+-
+vector
+-
+algorithm
+-
+memory
+-
+type_traits
+-
+cstring
+-
+

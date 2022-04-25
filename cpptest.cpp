@@ -1,87 +1,69 @@
-#include <exception>
 #include <iostream>
+#include <thread>
+#include <mutex>
 #include <string>
-using namespace std;
+#include <fstream>
+#include <unordered_map>
+#include <vector>
+#include <algorithm>
+#include <memory>
+#include <type_traits>
+#include <cstring>
 
-class MyException : public exception {
-public:
-    const char* what(){
-        return "My Exception";
+const std::string FILENAME = "numbers.txt";
+
+void writer(int i){
+    std::ofstream of;
+    std::string filename = FILENAME + std::to_string(i);
+    of.open(filename, std::ios::binary | std::ios::trunc);
+    for (int i = 0; i < 1000; i++ ){
+        of << std::to_string(rand()) << "\n";
     }
-};
+    of.close();
+}
 
-class ReadingFailException : public exception {
-public:
-    const char* what(){
-        return "Reading Fail";
+void reader(int i){
+    std::vector<int> nums;
+    std::ifstream ifile;
+    std::string filename = FILENAME + std::to_string(i);
+    ifile.open(filename, std::ios::binary);
+    char buf[4096];
+    for (int i = 0; i < 1000; i++ ){
+        ifile.getline(buf, 4096);
+        nums.push_back(std::atoi(buf));
     }
-};
+    std::sort(nums.begin(), nums.end());
+    ifile.close();
 
-double division (int a, int b) throw(MyException)
+    std::ofstream of;
+    of.open(filename, std::ios::binary | std::ios::trunc);
+    for (int i = 0; i < 1000; i++ ){
+        of << std::to_string(nums[i]) << "\n";
+    }
+}
+ 
+int main(int argc, char *argv[])
 {
-   if( b == 0 )
-   {
-      throw MyException();
-   }
-   return (a/b);
-}
+    std::vector<std::thread> threads;
+    for (int i = 0; i < 10; i++){
+        threads.push_back(std::thread(writer, i));
+    }
+    for (int i = 0; i < 10; i++){
+        threads[i].join();
+    }
 
-int test(int n1, int n2){
-    return n1 + n2;
-}
+    std::vector<std::thread>().swap(threads);
 
-int (*ptest) (int , int);
-
-
-template <typename T>
-int sum(T a){
-    return a;
-}
-
-template <typename T, typename... args>
-int sum(T a, args... re){
-    return a + sum(re...);
-}
-
-int readingFile(const string& fileName){
-    if (fileName != "config.ini"){
-        throw ReadingFailException();
+    std::cin.get();
+    for (int i = 0; i < 10; i++){
+        threads.push_back(std::thread(reader, i));
+    }
+    for (int i = 0; i < 10; i++){
+        threads[i].join();
     }
     return 0;
 }
 
-typedef struct {
-    string name;
-    int age;
-    string color;
-}Cat;
 
-int main(){
-    // ptest = &test;
-    // cout << (*ptest)(10, 20) << endl;
-    // cout << sum(10, 201, 239, 31, 321, 43, 54, 31) << endl;
-    // int x = 50;
-    // int y = 0;
-    // double z = 0;
-    // try {
-    //     z = division(x, y);
-    //     cout << z << endl;
-    // }catch (MyException& e) {
-    //     cerr << e.what() << endl;
-    // }
 
-    // try {
-    //     readingFile("config.init");
-
-    // }catch (ReadingFailException& e){
-    //     cerr << e.what() << endl;
-    // }
-    Cat c1;
-    c1.age = 1;
-    c1.color = "white milk";
-    c1.name = "fufu";
-    cout << c1.name << "\t" << c1.age << "\t" << c1.color << endl;
-    
-    return 0;
-}
 

@@ -1,0 +1,3 @@
+/home/ubuntu/GoLearn/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/GoLearn/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/GoLearn/build/CMakeFiles/cpptest.dir
