@@ -1,9 +1,9 @@
 package main
 
 import (
-	"GoLearn/gochannel"
+	"GoLearn/goreflect"
 )
 
 func main() {
-	gochannel.Test01()
+	goreflect.Test01()
 }
