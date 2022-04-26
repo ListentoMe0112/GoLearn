@@ -2,46 +2,55 @@ package gochannel
 
 import "fmt"
 
-var myChan chan int = make(chan int, 2000)
-var sigChan chan bool = make(chan bool, 8)
-var resChan []int = make([]int, 8)
-
-func WriteData() {
-	for i := 0; i < 2000; i++ {
-		myChan <- (i + 1)
+func Acc(n int) int {
+	var sum int = 0
+	for i := 1; i <= n; i++ {
+		sum += i
 	}
-	close(myChan)
+	return sum
 }
 
-func Acc(i int) {
+func GoRoutineAcc(sigChan chan bool, numChan chan int, resChan chan int) {
 	for {
-		v, ok := <-myChan
-		if ok {
-			resChan[i] = resChan[i] + v
-		} else {
-			sigChan <- false
-			return
+		num, ok := <-numChan
+		if !ok {
+			break
 		}
+		resChan <- Acc(num)
 	}
+	sigChan <- true
 }
 
 func Test01() {
-	var sum int = 0
-	go WriteData()
+	var sigChan chan bool = make(chan bool, 4)
+	var numChan chan int = make(chan int, 8000)
+	var resChan chan int = make(chan int, 2000)
+
+	go func() {
+		for i := 1; i <= 2000; i++ {
+			numChan <- i
+		}
+		close(numChan)
+	}()
+
 	for i := 0; i < 8; i++ {
-		go Acc(i)
+		go GoRoutineAcc(sigChan, numChan, resChan)
 	}
+
+	go func() {
+		for i := 0; i < 8; i++ {
+			<-sigChan
+		}
+		close(sigChan)
+		close(resChan)
+	}()
 
 	for {
-		if len(sigChan) == 8 {
-			close(sigChan)
+		num, ok := <-resChan
+		if !ok {
 			break
+		} else {
+			fmt.Println(num)
 		}
 	}
-
-	for i := 0; i < 8; i++ {
-		sum += resChan[i]
-	}
-
-	fmt.Println(sum)
 }
